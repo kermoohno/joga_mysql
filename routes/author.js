@@ -5,7 +5,7 @@ const router  = express.Router();
 const authorController = require('../controllers/author');
 
 // use controller functions according to the route
-router.get('/:id', authorController.getAuthorArticles);
+router.get('/:author_id', authorController.getAuthorArticles);
 
 // export article router for using in default application file
 module.exports = router;

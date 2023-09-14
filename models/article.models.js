@@ -29,15 +29,15 @@ Article.getAll = (result) => {
 
 // get article by slug
 Article.getBySlug = (slug, result) => {
-    let query = `SELECT article.*, author.name AS authorName FROM article INNER JOIN author ON article.author_id = author.id WHERE slug="${slug}"`
-    let article
+    let query = `SELECT article.*, author.name AS authorName FROM article INNER JOIN author ON article.author_id = author.id WHERE slug = "${slug}"`
+
     con.query(query, (err, res) => {
-        if(err) {
+        if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
-        if(res.length) {
+        if (res.length) {
             console.log("found article: ", res[0]);
             result(null, res[0]);
         }

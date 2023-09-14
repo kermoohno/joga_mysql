@@ -69,6 +69,7 @@ const getAllArticles = (req, res) => {
                     message : err.message || 'Some error occurred retrieving article data'
                 })
             } else {
+                console.log('single data')
                 console.log(data)
                 res.render('article', {
                     article: data
