@@ -50,7 +50,7 @@ const getAllArticles = (req, res) => {
     Article.getAll((err, data) => {
         if (err) {
             res.status(500).send({
-                message : err.message || 'Some error occurred retrieving aritcles data'
+                message : err.message || 'Some error occurred retrieving articles data'
             })
         } else {
             console.log(data)
@@ -62,25 +62,20 @@ const getAllArticles = (req, res) => {
 };
 
 // show article by this slug
-const getArticleBySlug = (req, res) => {
-    let query = `SELECT article.*, author.name AS authorName 
-                 FROM article 
-                 INNER JOIN author ON article.author_id = author.id 
-                 WHERE article.slug="${req.params.slug}"`;
-
-    con.query(query, (err, result) => {
-        if (err) {
-            res.status(500).send({
-                message: err.message || 'Some error occurred retrieving the article data'
-            });
-        } else {
-            const article = result[0]; // Assuming you expect one result
-            res.render('article', {
-                article: article
-            });
-        }
-    });
-};
+    const getArticleBySlug = (req, res) => {
+        Article.getBySlug(req.params.slug, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    message : err.message || 'Some error occurred retrieving article data'
+                })
+            } else {
+                console.log(data)
+                res.render('article', {
+                    article: data
+                })
+            }
+        })
+    };
 
 
 // export controller functions
