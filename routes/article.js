@@ -5,7 +5,7 @@ const router  = express.Router();
 const articleController = require('../controllers/article');
 
 // use controller functions according to the route
-router.get('/', articleController.getAllArtticles);
+router.get('/', articleController.getAllArticles);
 router.get('/article/:slug', articleController.getArticleBySlug);
 
 // export article router for using in default application file
