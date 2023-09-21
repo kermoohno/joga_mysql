@@ -4,6 +4,8 @@ const app = express()
 
 const path = require('path')
 // add template engine
+app.use(express.urlencoded({ extended: true}));
+
 const hbs = require('express-handlebars');
 // setup template engine directory and files extensions
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +32,6 @@ app.use('/author', authorRoutes)
 
 
 // app start point
-app.listen(3000, () => {
-    console.log('App is started at http://localhost:3000');
+app.listen(3001, () => {
+    console.log('App is started at http://localhost:3001');
 });

@@ -1,6 +1,7 @@
 // import database connection
 const con = require('../utils/db');
 
+
 // show all articles - index page
 /*const getAllArtticles = (req, res) =>  {
     let query = "SELECT * FROM article";
@@ -43,7 +44,7 @@ module.exports = {
 };
 
  */
-const Article = require('../models/article.models');
+const Article = require('../models/article.model');
 
 // show all articles - index page
 const getAllArticles = (req, res) => {
@@ -78,11 +79,53 @@ const getAllArticles = (req, res) => {
         })
     };
 
+// create new article
+const createNewArticle = (req, res) => {
+    //new article from Post data (example from form)
+    console.log('new article')
+
+    console.log({
+        name: req.body.name,
+        slug: req.body.slug,
+        image: req.body.image,
+        body: req.body.body,
+        published: new Date().toISOString().slice(0, 19).replace('T', ''),
+        author_id: req.body.author_id
+    })
+
+    const newArticle = {
+        name: req.body.name,
+        slug: req.body.slug,
+        image: req.body.image,
+        body: req.body.body,
+        published: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        author_id: req.body.author_id
+    }
+
+    Article.createNew(newArticle, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || 'Some error occured sending article data'
+            })
+        } else {
+            console.log(data)
+            res.redirect('/')
+        }
+    })
+};
+
+//display article form
+const showNewArticleForm = (req, res) => {
+    res.render('create_article')
+};
+
 
 // export controller functions
 module.exports = {
     getAllArticles,
-    getArticleBySlug
+    getArticleBySlug,
+    createNewArticle,
+    showNewArticleForm,
 };
 
 
